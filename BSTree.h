@@ -43,9 +43,9 @@ class BSTree {
 	void print_inorder(std::ostream &out, BSNode<T>* n) const{//muestra a traves de out recorrido inorden
 	
 		if (n != nullptr) {
-            		inorden(out,n->left);         // Recorrer subárbol izquierdo
+            		print_inorder(out,n->left);         // Recorrer subárbol izquierdo
                   	out << n->elem << " ";                // Procesar el nodo actual
-            		inorden(out,n->right);       // Recorrer subárbol derecho
+            		print_inorder(out,n->right);       // Recorrer subárbol derecho
         }
 	}
 	  BSNode<T>* remove(BSNode<T>* n, T e) {//eliminar            
@@ -114,7 +114,8 @@ class BSTree {
 	
 
 	void insert(T e){//inserción
-		insert(root,e)->elem;
+		root = insert(root,e);
+		++nelem;
 	}
 	
 	friend std::ostream& operator<<(std::ostream &out, const BSTree<T> &bst){//recorrido e impresión del árbol
@@ -122,7 +123,8 @@ class BSTree {
 	  bst.print_inorder(out, bst.root);
 	  return out;				               		}
 	  void remove(T e){
-	  	remove(root, e);
+	  	root = remove(root, e);
+		--nelem;
 	  }
           
 	  ~BSTree(){
